@@ -34,6 +34,7 @@ let DB = process.env.DATABASE.replace(
 if (process.env.DATABASE_NAME) {
   DB = DB.replace('<DATABASE>', process.env.DATABASE_NAME);
 }
+console.log('Database connection string:', DB, port);
 // const DB = process.env.DATABASE.replace(
 //   '<PASSWORD>',
 //   process.env.DATABASE_PASSWORD
