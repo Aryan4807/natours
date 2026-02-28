@@ -73,7 +73,6 @@ try {
   tours = JSON.parse(
     fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
   );
-  console.log(`Loaded ${tours.length} tours`);
 } catch (error) {
   console.error('ERROR reading tours file:', error.message);
   process.exit(1);

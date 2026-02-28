@@ -9,11 +9,11 @@
   "targets": {
     "main": false
   },
- "scripts": {
+  "scripts": {
     "start": "node server.js",
     "start:dev": "nodemon server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "build": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
+    "build": "npx parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "postinstall": "npm run build",
     "debug": "ndb server.js"
   },
@@ -21,6 +21,7 @@
     "@babel/polyfill": "^7.12.1",
     "axios": "^1.13.2",
     "bcryptjs": "^3.0.3",
+    "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "core-js": "^3.47.0",
     "cors": "^2.8.5",
@@ -38,6 +39,7 @@
     "nodemailer": "^7.0.10",
     "nodemailer-brevo-transport": "^2.2.1",
     "nodemon": "^3.1.10",
+    "parcel-bundler": "^1.12.5",
     "pug": "^3.0.3",
     "razorpay": "^2.9.6",
     "regenerator-runtime": "^0.14.1",
@@ -56,7 +58,6 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "ndb": "^1.1.5",
-    "parcel-bundler": "^1.12.5",
     "prettier": "^1.17.0"
   },
   "engines": {
