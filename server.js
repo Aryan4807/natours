@@ -18,10 +18,26 @@ const port = process.env.PORT || 3000;
 //   '<PASSWORD>',
 //   process.env.DATABASE_PASSWORD
 // );
-const DB = process.env.DATABASE.replace(
+// 1. Safety check: Ensure the base string exists
+if (!process.env.DATABASE) {
+  console.error('ERROR: DATABASE environment variable is missing!');
+  process.exit(1);
+}
+
+// 2. Perform the replacements
+let DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
-).replace('<DATABASE>', process.env.DATABASE_NAME);
+);
+
+// Only replace <DATABASE> if you actually have that placeholder in your string
+if (process.env.DATABASE_NAME) {
+  DB = DB.replace('<DATABASE>', process.env.DATABASE_NAME);
+}
+// const DB = process.env.DATABASE.replace(
+//   '<PASSWORD>',
+//   process.env.DATABASE_PASSWORD
+// ).replace('<DATABASE>', process.env.DATABASE_NAME);
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
@@ -30,7 +46,7 @@ mongoose
   })
   .then(() => console.log('DB connection successful!'));
 
-const server = app.listen(port, () => {
+const server = app.listen(port, '0.0.0.0', () => {
   console.log(`App running on port ${port}...`);
 });
 
