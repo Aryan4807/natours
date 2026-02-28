@@ -89,21 +89,20 @@ userSchema.methods.createPasswordResetToken = function() {
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
-userSchema.pre(/^find/, async function(next) {
+userSchema.pre(/^find/, function() {
   this.find({ active: { $ne: false } });
-  next();
 });
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', function(next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangeAt = Date.now() - 1000;
 
   next();
 });
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', function(next) {
   if (!this.isModified('password')) return next();
 
-  this.password = await brcypt.hashSync(this.password, 12);
+  this.password = brcypt.hashSync(this.password, 12);
   this.passwordConfirm = undefined;
   next();
 });
