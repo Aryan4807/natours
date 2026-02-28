@@ -14,38 +14,50 @@ const app = require('./app');
 
 const port = process.env.PORT || 3000;
 
-// const DB = process.env.DATABASE.replace(
-//   '<PASSWORD>',
-//   process.env.DATABASE_PASSWORD
-// );
-// 1. Safety check: Ensure the base string exists
+// Build DB connection string
 if (!process.env.DATABASE) {
   console.error('ERROR: DATABASE environment variable is missing!');
   process.exit(1);
 }
 
-// 2. Perform the replacements
-let DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+// Trim env variables to remove any whitespace
+const database = (process.env.DATABASE || '').trim();
+const password = (process.env.DATABASE_PASSWORD || '').trim();
+const dbName = (process.env.DATABASE_NAME || '').trim();
 
-// Only replace <DATABASE> if you actually have that placeholder in your string
-if (process.env.DATABASE_NAME) {
-  DB = DB.replace('<DATABASE>', process.env.DATABASE_NAME);
+console.log('Original DATABASE:', database);
+console.log('DATABASE_PASSWORD:', password ? 'set' : 'missing');
+console.log('DATABASE_NAME:', dbName ? 'set' : 'missing');
+
+let DB = database;
+
+if (password) {
+  DB = DB.replace('<PASSWORD>', password);
+  console.log('After password replacement:', DB);
 }
-console.log('Database connection string:', DB, port);
-// const DB = process.env.DATABASE.replace(
-//   '<PASSWORD>',
-//   process.env.DATABASE_PASSWORD
-// ).replace('<DATABASE>', process.env.DATABASE_NAME);
+
+if (dbName) {
+  DB = DB.replace('<DATABASE>', dbName);
+  console.log('After database name replacement:', DB);
+}
+
+console.log('Final connection string:', DB);
+console.log('Connection string length:', DB.length);
+
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
   })
-  .then(() => console.log('DB connection successful!'));
+  .then(() => console.log('DB connection successful!'))
+  .catch(err => {
+    console.error('DB connection error:');
+    console.error('Name:', err.name);
+    console.error('Message:', err.message);
+    console.error('Full error:', err);
+    process.exit(1);
+  });
 
 const server = app.listen(port, '0.0.0.0', () => {
   console.log(`App running on port ${port}...`);
