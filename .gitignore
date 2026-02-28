@@ -1,0 +1,7 @@
+.cache
+node_modules/
+.env
+.preettierrc
+package-lock.json
+config.env
+templates
