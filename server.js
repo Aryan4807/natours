@@ -46,7 +46,9 @@ console.log('Connection string length:', DB.length);
 
 mongoose
   .connect(DB, {
-    useNewUrlParser: true
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
   })
   .then(() => console.log('DB connection successful!'))
   .catch(err => {
