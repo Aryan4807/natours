@@ -2,9 +2,6 @@ Natours Project
 Future implementations
 
 
-Below are the challenges typed out so not everyone has to type them out on their own
-27 upvotes
-Kevin · Lecture 217 · 5 years ago
 CHALLENGES API
 
 - Implement restriction that users can only review a tour that they have actually booked;
