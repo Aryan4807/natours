@@ -57,13 +57,8 @@ module.exports = class Email {
         html,
         text: htmlToText.fromString(html)
       };
-      console.log('Sending email with options:', {
-        to: this.to,
-        subject,
-        from: this.from
-      });
       const result = await this.newTransport().sendMail(mailOptions);
-      console.log('Email sent successfully:', result.response);
+      // console.log('Email sent successfully:', result.response);
     } catch (error) {
       console.error('Email sending failed:', error.message);
       throw error;

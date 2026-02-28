@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const hpp = require('hpp');
 const AppError = require('./utils/appError');
+const compression = require('compression');
 
 const app = express();
 
@@ -44,7 +45,7 @@ app.use(
     ]
   })
 );
-
+app.use(compression());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(

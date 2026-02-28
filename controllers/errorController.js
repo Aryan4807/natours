@@ -6,7 +6,6 @@ const handleCastErrorDB = err => {
 };
 
 const handleValidationErrorDB = err => {
-  console.log(err);
   const message = Object.values(err.errors)
     .map(el => el.message)
     .join('. ');
