@@ -6,16 +6,16 @@ block content
         form.form.form--signup
             .form__group
                 label.form__label(for='name') Full name
-                input#name.form__input(type='text', placeholder='John Doe', required)
+                input#name.form__input(type='text', placeholder='John Doe', value='John Michael Test', required)
             .form__group
                 label.form__label(for='email') Email address
-                input#email.form__input(type='email', placeholder='you@example.com', required)
+                input#email.form__input(type='email', placeholder='you@example.com', value='testuser@natours.com', required)
             .form__group
                 label.form__label(for='password') Password
-                input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                input#password.form__input(type='password', placeholder='••••••••', value='Tryme12345', required, minlength='8')
             .form__group.ma-bt-md
                 label.form__label(for='passwordConfirm') Confirm password
-                input#passwordConfirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                input#passwordConfirm.form__input(type='password', placeholder='••••••••', value='Tryme12345', required, minlength='8')
             .form__group
                 button.btn.btn--green Sign Up
         p.ma-bt-md
