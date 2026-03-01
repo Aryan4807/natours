@@ -6,9 +6,12 @@ block content
         form.form.form--login
             .form__group
                 label.form__label(for='email') Email address
-                input#email.form__input(type='email', placeholder='you@example.com', required)
+                input#email.form__input(type='email', placeholder='you@example.com', value='aryan@biss.io', required)
             .form__group.ma-bt-md
                 label.form__label(for='password') Password
-                input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                input#password.form__input(type='password', placeholder='••••••••', value='Tryme12345', required, minlength='8')
             .form__group
                 button.btn.btn--green Login
+        p.ma-bt-md
+            | Don't have an account? 
+            a(href='/signup') Create one here

@@ -9,8 +9,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const hpp = require('hpp');
-const AppError = require('./utils/appError');
 const compression = require('compression');
+const AppError = require('./utils/appError');
 
 const app = express();
 

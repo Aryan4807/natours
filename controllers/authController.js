@@ -44,7 +44,17 @@ exports.signup = catchAsync(async (req, res, next) => {
     role: req.body.role
   });
   const url = `${req.protocol}://${req.get('host')}/me`;
-  await new Email(newUser, url).sendWelcome();
+
+  // Send welcome email in background - don't wait for it
+  // This way signup completes even if email fails
+  try {
+    new Email(newUser, url).sendWelcome().catch(err => {
+      console.error('Welcome email failed:', err.message);
+    });
+  } catch (err) {
+    console.error('Error initiating welcome email:', err.message);
+  }
+
   createSendToken(newUser, 201, res);
 });
 
