@@ -89,22 +89,30 @@ userSchema.methods.createPasswordResetToken = function() {
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
+// 1) Query Middleware: Filter out inactive users
 userSchema.pre(/^find/, function() {
-  this.find({ active: { $ne: false } });
+  this.where({ active: { $ne: false } });
 });
-userSchema.pre('save', function(next) {
-  if (!this.isModified('password') || this.isNew) return next();
+
+// 2) Password Changed At: Logic for reset password
+userSchema.pre('save', async function() {
+  // If password isn't modified or user is new, don't do anything
+  if (!this.isModified('password') || this.isNew) return;
 
   this.passwordChangeAt = Date.now() - 1000;
-
-  next();
 });
-userSchema.pre('save', function(next) {
-  if (!this.isModified('password')) return next();
 
-  this.password = brcypt.hashSync(this.password, 12);
+// 3) Password Hashing: Secure the password
+userSchema.pre('save', async function() {
+  // Only run this function if password was actually modified
+  if (!this.isModified('password')) return;
+
+  // Hashing the password with cost of 12
+  // Note: I switched to the ASYNC version (hash) instead of hashSync
+  this.password = await brcypt.hash(this.password, 12);
+
+  // Delete passwordConfirm field
   this.passwordConfirm = undefined;
-  next();
 });
 const User = mongoose.model('User', userSchema);
 module.exports = User;

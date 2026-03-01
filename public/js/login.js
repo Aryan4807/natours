@@ -20,7 +20,7 @@ export const login = async (email, password) => {
       }, 1500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message || 'Something went wrong');
+    showAlert('error', err.response?.data?.message || 'Something went wrong');
   }
 };
 
@@ -44,7 +44,7 @@ export const signup = async (name, email, password, passwordConfirm) => {
       }, 1500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message || 'Something went wrong');
+    showAlert('error', err.response?.data?.message || 'Something went wrong');
   }
 };
 
